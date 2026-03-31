@@ -1,0 +1,25 @@
+services:
+  - type: web
+    name: dm-fashion-apparel
+    runtime: node
+    plan: free
+    region: singapore
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /api/health
+    autoDeployTrigger: commit
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000
+      - key: HOST
+        value: 0.0.0.0
+      - key: TRUST_PROXY
+        value: 1
+      - key: SESSION_COOKIE_SAME_SITE
+        value: lax
+      - key: SESSION_COOKIE_SECURE
+        value: true
+      - key: SESSION_SECRET
+        generateValue: true

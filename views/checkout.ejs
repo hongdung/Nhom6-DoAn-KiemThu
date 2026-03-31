@@ -1,0 +1,49 @@
+<%- include('partials/head') %>
+<%- include('partials/header', { selectedCategory }) %>
+
+<section class="checkout-grid">
+  <div class="checkout-copy">
+    <p class="eyebrow">Thanh toán</p>
+    <h1>Hoàn tất đơn hàng của bạn</h1>
+    <p>
+      Vui lòng kiểm tra kỹ thông tin nhận hàng để đơn được xử lý nhanh chóng và giao đến bạn trong
+      thời gian sớm nhất.
+    </p>
+    <div class="summary-card">
+      <div class="summary-row">
+        <span>Tổng sản phẩm</span>
+        <strong><%= cart.itemCount %></strong>
+      </div>
+      <div class="summary-row">
+        <span>Tạm tính</span>
+        <strong><%= formatCurrency(cart.subtotal) %></strong>
+      </div>
+    </div>
+  </div>
+  <form action="/checkout" method="post" class="checkout-form">
+    <label>
+      Họ và tên
+      <input type="text" name="customerName" placeholder="Nguyễn Văn A" required />
+    </label>
+    <label>
+      Email
+      <input type="email" name="customerEmail" placeholder="vana@example.com" required />
+    </label>
+    <label>
+      Số điện thoại
+      <input type="tel" name="customerPhone" placeholder="0901234567" required />
+    </label>
+    <label>
+      Địa chỉ giao hàng
+      <textarea
+        name="shippingAddress"
+        rows="4"
+        placeholder="123 Quang Trung, Gò Vấp, TP.HCM"
+        required
+      ></textarea>
+    </label>
+    <button type="submit">Xác nhận đặt hàng</button>
+  </form>
+</section>
+
+<%- include('partials/footer') %>

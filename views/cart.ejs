@@ -1,0 +1,69 @@
+<%- include('partials/head') %>
+<%- include('partials/header', { selectedCategory }) %>
+
+<section class="section-header">
+  <div>
+    <p class="eyebrow">Giỏ hàng</p>
+    <h1>Giỏ hàng của bạn</h1>
+  </div>
+  <% if (cart.items.length) { %>
+    <a href="/checkout" class="primary-link">Tiến hành thanh toán</a>
+  <% } %>
+</section>
+
+<% if (cart.items.length) { %>
+  <section class="cart-layout">
+    <div class="cart-items">
+      <% cart.items.forEach((item) => { %>
+        <article class="cart-item" style="--accent: <%= item.accentColor %>;">
+          <div class="cart-swatch">
+            <% if (item.image) { %>
+              <img class="media-image" src="<%= item.image %>" alt="<%= item.name %>" loading="lazy" />
+              <span class="media-overlay" aria-hidden="true"></span>
+            <% } %>
+            <span class="product-tag"><%= item.category %></span>
+          </div>
+          <div class="cart-copy">
+            <p class="eyebrow"><%= item.category %></p>
+            <h2><a href="/products/<%= item.slug %>"><%= item.name %></a></h2>
+            <p><%= formatCurrency(item.price) %> mỗi sản phẩm</p>
+          </div>
+          <form action="/cart/update" method="post" class="cart-form">
+            <input type="hidden" name="productId" value="<%= item.productId %>" />
+            <label>
+              Số lượng
+              <input type="number" name="quantity" value="<%= item.quantity %>" min="1" max="10" />
+            </label>
+            <button type="submit">Cập nhật</button>
+          </form>
+          <div class="cart-line-total"><%= formatCurrency(item.lineTotal) %></div>
+          <form action="/cart/remove" method="post">
+            <input type="hidden" name="productId" value="<%= item.productId %>" />
+            <button type="submit" class="ghost-button">Xóa</button>
+          </form>
+        </article>
+      <% }) %>
+    </div>
+    <aside class="summary-card">
+      <p class="eyebrow">Tóm tắt</p>
+      <h2>Tóm tắt đơn hàng</h2>
+      <div class="summary-row">
+        <span>Tổng sản phẩm</span>
+        <strong><%= cart.itemCount %></strong>
+      </div>
+      <div class="summary-row">
+        <span>Tạm tính</span>
+        <strong><%= formatCurrency(cart.subtotal) %></strong>
+      </div>
+      <a href="/checkout" class="primary-link full-width">Đến trang thanh toán</a>
+    </aside>
+  </section>
+<% } else { %>
+  <section class="empty-state">
+    <h2>Giỏ hàng đang trống</h2>
+    <p>Hãy chọn thêm vài món yêu thích để hoàn thiện set đồ dành cho bạn.</p>
+    <a href="/products" class="primary-link">Mua sắm ngay</a>
+  </section>
+<% } %>
+
+<%- include('partials/footer') %>

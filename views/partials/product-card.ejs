@@ -1,0 +1,35 @@
+<article class="product-card" style="--accent: <%= product.accentColor %>;">
+  <a href="/products/<%= product.slug %>" class="product-media" aria-label="<%= product.name %>">
+    <% if (product.image) { %>
+      <img class="media-image" src="<%= product.image %>" alt="<%= product.name %>" loading="lazy" />
+      <span class="media-overlay" aria-hidden="true"></span>
+    <% } %>
+    <span class="product-tag"><%= product.category %></span>
+    <% if (!product.image) { %>
+      <span class="product-monogram">
+        <%= product.name.split(' ').slice(0, 2).map((word) => word[0]).join('') %>
+      </span>
+    <% } %>
+  </a>
+  <div class="product-body">
+    <div class="product-copy">
+      <p class="eyebrow"><%= product.category %></p>
+      <h3><a href="/products/<%= product.slug %>"><%= product.name %></a></h3>
+      <p><%= product.description %></p>
+    </div>
+    <div class="product-meta">
+      <div>
+        <strong><%= formatCurrency(product.price) %></strong>
+        <% if (product.comparePrice) { %>
+          <span class="compare-price"><%= formatCurrency(product.comparePrice) %></span>
+        <% } %>
+      </div>
+      <form action="/cart" method="post" class="inline-form">
+        <input type="hidden" name="productId" value="<%= product.id %>" />
+        <input type="hidden" name="quantity" value="1" />
+        <input type="hidden" name="redirectTo" value="<%= currentPath === '/' ? '/' : '/products' %>" />
+        <button type="submit">Thêm giỏ hàng</button>
+      </form>
+    </div>
+  </div>
+</article>

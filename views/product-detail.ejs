@@ -1,0 +1,70 @@
+<%- include('partials/head') %>
+<%- include('partials/header', { selectedCategory }) %>
+
+<section class="detail-grid">
+  <div class="detail-media" style="--accent: <%= product.accentColor %>;">
+    <% if (product.image) { %>
+      <img class="media-image" src="<%= product.image %>" alt="<%= product.name %>" />
+      <span class="media-overlay" aria-hidden="true"></span>
+    <% } %>
+    <span><%= product.category %></span>
+    <h1><%= product.name %></h1>
+  </div>
+  <div class="detail-copy">
+    <p class="eyebrow">Chi tiết sản phẩm</p>
+    <h2><%= product.name %></h2>
+    <p class="detail-description"><%= product.description %></p>
+    <div class="detail-price">
+      <strong><%= formatCurrency(product.price) %></strong>
+      <% if (product.comparePrice) { %>
+        <span class="compare-price"><%= formatCurrency(product.comparePrice) %></span>
+      <% } %>
+    </div>
+    <ul class="detail-list">
+      <li>Danh mục: <%= product.category %></li>
+      <li>Tình trạng: <%= product.stock > 0 ? `Còn ${product.stock} sản phẩm` : 'Tạm hết hàng' %></li>
+      <li>Mã sản phẩm: <code>DM-<%= String(product.id).padStart(3, '0') %></code></li>
+    </ul>
+    <form action="/cart" method="post" class="detail-form">
+      <input type="hidden" name="productId" value="<%= product.id %>" />
+      <input type="hidden" name="redirectTo" value="/products/<%= product.slug %>" />
+      <label>
+        Số lượng
+        <input type="number" name="quantity" value="1" min="1" max="10" />
+      </label>
+      <button type="submit">Thêm vào giỏ hàng</button>
+    </form>
+  </div>
+</section>
+
+<% if (product.gallery && product.gallery.length) { %>
+  <section class="section-header compact">
+    <div>
+      <p class="eyebrow">Góc nhìn sản phẩm</p>
+      <h2>Chi tiết chất liệu và phom dáng</h2>
+    </div>
+  </section>
+  <section class="detail-gallery">
+    <% product.gallery.forEach((imagePath, index) => { %>
+      <article class="gallery-card">
+        <img src="<%= imagePath %>" alt="<%= `${product.name} - ảnh ${index + 1}` %>" loading="lazy" />
+      </article>
+    <% }) %>
+  </section>
+<% } %>
+
+<% if (recommendations.length) { %>
+  <section class="section-header">
+    <div>
+      <p class="eyebrow">Phối cùng</p>
+      <h2>Những lựa chọn cùng tinh thần</h2>
+    </div>
+  </section>
+  <section class="product-grid">
+    <% recommendations.forEach((recommended) => { %>
+      <%- include('partials/product-card', { product: recommended }) %>
+    <% }) %>
+  </section>
+<% } %>
+
+<%- include('partials/footer') %>

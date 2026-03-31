@@ -1,0 +1,90 @@
+<%- include('partials/head') %>
+<%- include('partials/header', { selectedCategory }) %>
+
+<% if (forbidden) { %>
+  <section class="empty-state">
+    <h1>Khu vực này chỉ dành cho quản trị viên</h1>
+    <p>Vui lòng đăng nhập bằng tài khoản quản trị để tiếp tục quản lý sản phẩm và đơn hàng.</p>
+    <a href="/login" class="primary-link">Đăng nhập quản trị</a>
+  </section>
+<% } else { %>
+  <section class="section-header">
+    <div>
+      <p class="eyebrow">Trung tâm quản trị</p>
+      <h1>Tổng quan cửa hàng</h1>
+    </div>
+  </section>
+
+  <section class="metrics-grid">
+    <article class="metric-card">
+      <span>Tổng sản phẩm</span>
+      <strong><%= dashboard.metrics.productCount %></strong>
+    </article>
+    <article class="metric-card">
+      <span>Tổng đơn hàng</span>
+      <strong><%= dashboard.metrics.orderCount %></strong>
+    </article>
+    <article class="metric-card">
+      <span>Doanh thu</span>
+      <strong><%= formatCurrency(dashboard.metrics.revenue) %></strong>
+    </article>
+  </section>
+
+  <section class="admin-grid">
+    <article class="table-card">
+      <div class="table-header">
+        <p class="eyebrow">Tồn kho thấp</p>
+        <h2>Sản phẩm sắp hết hàng</h2>
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>Tên sản phẩm</th>
+            <th>Tồn kho</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% dashboard.lowStock.forEach((product) => { %>
+            <tr>
+              <td><%= product.name %></td>
+              <td><%= product.stock %></td>
+            </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </article>
+
+    <article class="table-card">
+      <div class="table-header">
+        <p class="eyebrow">Đơn gần nhất</p>
+        <h2>Đơn hàng mới nhất</h2>
+      </div>
+      <% if (dashboard.recentOrders.length) { %>
+        <table>
+          <thead>
+            <tr>
+              <th>Mã đơn</th>
+              <th>Khách hàng</th>
+              <th>Email</th>
+              <th>Tổng tiền</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% dashboard.recentOrders.forEach((order) => { %>
+              <tr>
+                <td>#<%= order.id %></td>
+                <td><%= order.customerName %></td>
+                <td><%= order.customerEmail %></td>
+                <td><%= formatCurrency(order.totalAmount) %></td>
+              </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      <% } else { %>
+        <p class="muted-text">Chưa có đơn hàng nào được ghi nhận.</p>
+      <% } %>
+    </article>
+  </section>
+<% } %>
+
+<%- include('partials/footer') %>

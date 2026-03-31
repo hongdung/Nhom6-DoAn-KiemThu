@@ -1,0 +1,54 @@
+<%- include('partials/head') %>
+<%- include('partials/header', { selectedCategory, filters }) %>
+
+<section class="catalog-header">
+  <div>
+    <p class="eyebrow">Danh mục</p>
+    <h1>Danh sách sản phẩm</h1>
+    <p>Tìm kiếm, lọc theo danh mục và đi vào trang chi tiết sản phẩm.</p>
+  </div>
+  <form action="/products" method="get" class="filter-panel">
+    <label>
+      Từ khóa
+      <input type="search" name="q" value="<%= filters.query %>" placeholder="áo, túi, linen" />
+    </label>
+    <label>
+      Danh mục
+      <select name="category">
+        <option value="">Tất cả danh mục</option>
+        <% categories.forEach((category) => { %>
+          <option value="<%= category %>" <%= filters.category === category ? 'selected' : '' %>>
+            <%= category %>
+          </option>
+        <% }) %>
+      </select>
+    </label>
+    <button type="submit">Lọc sản phẩm</button>
+  </form>
+</section>
+
+<section class="section-header compact">
+  <div>
+    <p class="eyebrow">Kết quả</p>
+    <h2><%= products.length %> sản phẩm phù hợp</h2>
+  </div>
+  <% if (filters.query || filters.category) { %>
+    <a href="/products" class="secondary-link">Xóa bộ lọc</a>
+  <% } %>
+</section>
+
+<% if (products.length) { %>
+  <section class="product-grid">
+    <% products.forEach((product) => { %>
+      <%- include('partials/product-card', { product }) %>
+    <% }) %>
+  </section>
+<% } else { %>
+  <section class="empty-state">
+    <h2>Chưa có sản phẩm phù hợp</h2>
+    <p>Hãy thử từ khóa khác hoặc chọn lại danh mục để khám phá thêm những thiết kế khác.</p>
+    <a href="/products" class="primary-link">Quay lại danh mục</a>
+  </section>
+<% } %>
+
+<%- include('partials/footer') %>

@@ -1,0 +1,45 @@
+<body>
+  <header class="site-header">
+    <div class="announcement-bar">Miễn phí giao hàng cho đơn từ 999.000đ tại các thành phố lớn.</div>
+    <div class="nav-shell">
+      <a href="/" class="brand-mark" aria-label="<%= siteName %>">
+        <img src="<%= logoPath %>" alt="<%= siteName %>" class="brand-logo" />
+      </a>
+      <nav class="primary-nav">
+        <% categories.forEach((category) => { %>
+          <a
+            href="/products?category=<%= encodeURIComponent(category) %>"
+            class="<%= selectedCategory === category ? 'active' : '' %>"
+          >
+            <%= category %>
+          </a>
+        <% }) %>
+        <a href="/products" class="<%= currentPath === '/products' ? 'active' : '' %>">Tất cả</a>
+        <% if (currentUser && currentUser.role === 'admin') { %>
+          <a href="/admin" class="<%= currentPath === '/admin' ? 'active' : '' %>">Quản trị</a>
+        <% } %>
+      </nav>
+      <div class="nav-actions">
+        <form action="/products" method="get" class="search-form">
+          <input
+            type="search"
+            name="q"
+            value="<%= typeof filters !== 'undefined' ? filters.query : '' %>"
+            placeholder="Tìm sản phẩm"
+            aria-label="Tìm sản phẩm"
+          />
+        </form>
+        <% if (currentUser) { %>
+          <span class="user-chip"><%= currentUser.fullName %></span>
+          <form action="/logout" method="post">
+            <button type="submit" class="ghost-button">Thoát</button>
+          </form>
+        <% } else { %>
+          <a href="/login" class="ghost-button">Tài khoản</a>
+        <% } %>
+        <a href="/cart" class="cart-link">Giỏ hàng (<%= cart.itemCount %>)</a>
+      </div>
+    </div>
+  </header>
+  <main class="page-shell">
+    <%- include('flash') %>

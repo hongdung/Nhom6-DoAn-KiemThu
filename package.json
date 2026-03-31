@@ -1,0 +1,25 @@
+{
+  "name": "course-project",
+  "version": "1.0.0",
+  "description": "Demo fashion storefront for software testing coursework",
+  "main": "src/server.js",
+  "scripts": {
+    "dev": "node --watch src/server.js",
+    "start": "node src/server.js"
+  },
+  "keywords": [
+    "testing",
+    "selenium",
+    "postman",
+    "express",
+    "ejs"
+  ],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "ejs": "^5.0.1",
+    "express": "^5.2.1",
+    "express-session": "^1.19.0"
+  }
+}

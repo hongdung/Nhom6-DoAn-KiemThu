@@ -1,0 +1,87 @@
+<%- include('partials/head') %>
+<%- include('partials/header', { selectedCategory }) %>
+
+<section class="hero-grid">
+  <div class="hero-copy">
+    <p class="eyebrow">Bộ sưu tập mới</p>
+    <h1>Những thiết kế tối giản dành cho tủ đồ thành thị hiện đại.</h1>
+    <p class="hero-text">
+      D&M Fashion & Apparel mang đến những lựa chọn dễ mặc, dễ phối và đủ tinh tế để theo bạn từ
+      công sở đến cuối tuần.
+    </p>
+    <div class="hero-actions">
+      <a href="/products" class="primary-link">Khám phá sản phẩm</a>
+      <a href="/products?category=Nữ" class="secondary-link">Mua cho nàng</a>
+    </div>
+    <div class="hero-metrics">
+      <div>
+        <strong>48H</strong>
+        <span>giao nhanh nội thành</span>
+      </div>
+      <div>
+        <strong>7 ngày</strong>
+        <span>đổi trả linh hoạt</span>
+      </div>
+      <div>
+        <strong>New</strong>
+        <span>bộ sưu tập chọn lọc</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-featured">
+    <% featuredProducts.forEach((product, index) => { %>
+      <article class="hero-product hero-product-<%= index + 1 %>" style="--accent: <%= product.accentColor %>;">
+        <% if (product.image) { %>
+          <img class="media-image" src="<%= product.image %>" alt="<%= product.name %>" loading="lazy" />
+          <span class="media-overlay" aria-hidden="true"></span>
+        <% } %>
+        <p><%= product.category %></p>
+        <h2><a href="/products/<%= product.slug %>"><%= product.name %></a></h2>
+        <span><%= formatCurrency(product.price) %></span>
+      </article>
+    <% }) %>
+  </div>
+</section>
+
+<section class="section-header">
+  <div>
+    <p class="eyebrow">D&M Signature</p>
+    <h2>Phong cách gọn gàng, chất liệu nhẹ và bảng màu dễ mặc quanh năm</h2>
+  </div>
+  <p>
+    Những thiết kế chủ lực được hoàn thiện để bạn xây dựng tủ đồ cân bằng giữa tính ứng dụng và cảm
+    hứng thời trang mỗi ngày.
+  </p>
+</section>
+
+<section class="feature-strip">
+  <article>
+    <h3>Chất liệu thoải mái</h3>
+    <p>Linen, cotton và các bề mặt mềm nhẹ giúp sản phẩm dễ mặc trong nhiều hoàn cảnh khác nhau.</p>
+  </article>
+  <article>
+    <h3>Phom dáng hiện đại</h3>
+    <p>Ưu tiên đường cắt gọn gàng, dễ phối lớp và phù hợp với nhịp sống linh hoạt của đô thị.</p>
+  </article>
+  <article>
+    <h3>Phụ kiện đồng điệu</h3>
+    <p>Túi, giày và áo khoác được chọn để hoàn thiện set đồ mà vẫn giữ cảm giác tối giản.</p>
+  </article>
+</section>
+
+<section class="section-header">
+  <div>
+    <p class="eyebrow">Sản phẩm nổi bật</p>
+    <h2>Những thiết kế được yêu thích cho mùa mới</h2>
+  </div>
+  <a href="/products" class="secondary-link">Xem tất cả</a>
+</section>
+
+<section class="product-grid">
+  <% newArrivals.forEach((product) => { %>
+    <%- include('partials/product-card', { product }) %>
+  <% }) %>
+</section>
+
+<%- include('partials/footer') %>

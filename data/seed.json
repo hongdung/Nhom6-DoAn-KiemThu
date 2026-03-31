@@ -1,0 +1,117 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "fullName": "Nguyễn Minh Anh",
+      "email": "customer@atelier.local",
+      "password": "123456",
+      "role": "customer"
+    },
+    {
+      "id": 2,
+      "fullName": "Store Manager",
+      "email": "admin@atelier.local",
+      "password": "admin123",
+      "role": "admin"
+    }
+  ],
+  "products": [
+    {
+      "id": 1,
+      "slug": "so-mi-linen-oversize",
+      "name": "Sơ mi Linen Oversize",
+      "category": "Nữ",
+      "price": 690000,
+      "comparePrice": 890000,
+      "description": "Thiết kế tối giản với phom rộng, chất vải linen pha cotton phù hợp cho thời tiết nóng và outfit hằng ngày.",
+      "accentColor": "#d5c0a3",
+      "featured": true,
+      "stock": 18
+    },
+    {
+      "id": 2,
+      "slug": "ao-thun-essential-fit",
+      "name": "Áo thun Essential Fit",
+      "category": "Nam",
+      "price": 320000,
+      "comparePrice": 420000,
+      "description": "Mẫu áo thun cơ bản dễ phối, chất cotton dày vừa phải, phù hợp cho test thêm giỏ hàng và tìm kiếm sản phẩm.",
+      "accentColor": "#9bb0b9",
+      "featured": true,
+      "stock": 32
+    },
+    {
+      "id": 3,
+      "slug": "quan-tay-tailored-ankle",
+      "name": "Quần tây Tailored Ankle",
+      "category": "Nữ",
+      "price": 780000,
+      "comparePrice": 980000,
+      "description": "Kiểu quần ống đứng cạp cao, tập trung vào sự gọn gàng và thanh lịch cho văn phòng hoặc đi chơi cuối tuần.",
+      "accentColor": "#b7b19f",
+      "featured": false,
+      "stock": 12
+    },
+    {
+      "id": 4,
+      "slug": "ao-khoac-coach-nylon",
+      "name": "Áo khoác Coach Nylon",
+      "category": "Nam",
+      "price": 990000,
+      "comparePrice": 1190000,
+      "description": "Áo khoác mỏng chống gió, phong cách streetwear nhẹ, thích hợp làm dữ liệu mẫu cho kiểm thử lọc danh mục.",
+      "accentColor": "#5b6674",
+      "featured": true,
+      "stock": 15
+    },
+    {
+      "id": 5,
+      "slug": "tui-mini-crossbody",
+      "name": "Túi Mini Crossbody",
+      "category": "Phụ kiện",
+      "price": 540000,
+      "comparePrice": 690000,
+      "description": "Túi đeo chéo kích thước nhỏ với thiết kế phẳng và dây bản mảnh, phù hợp cho chức năng xem chi tiết sản phẩm.",
+      "accentColor": "#7a5748",
+      "featured": true,
+      "stock": 20
+    },
+    {
+      "id": 6,
+      "slug": "dam-midi-wrap",
+      "name": "Đầm Midi Wrap",
+      "category": "Nữ",
+      "price": 880000,
+      "comparePrice": 1100000,
+      "description": "Đầm midi tay ngắn, phần eo nhấn nhẹ tạo cảm giác chuyển động mềm và sang, thích hợp đặt ở khu vực nổi bật.",
+      "accentColor": "#9d5753",
+      "featured": false,
+      "stock": 9
+    },
+    {
+      "id": 7,
+      "slug": "giay-sneaker-suede",
+      "name": "Giày Sneaker Suede",
+      "category": "Phụ kiện",
+      "price": 1250000,
+      "comparePrice": 1490000,
+      "description": "Kiểu sneaker đế thấp, phối màu trung tính, hỗ trợ các test case liên quan đến giá trị biên và giỏ hàng.",
+      "accentColor": "#8b927a",
+      "featured": false,
+      "stock": 11
+    },
+    {
+      "id": 8,
+      "slug": "quan-short-relaxed",
+      "name": "Quần Short Relaxed",
+      "category": "Nam",
+      "price": 450000,
+      "comparePrice": 560000,
+      "description": "Mẫu short lưng chun thoải mái, dễ tạo nhiều trạng thái trong UI và phù hợp làm dữ liệu regression cơ bản.",
+      "accentColor": "#b58d62",
+      "featured": false,
+      "stock": 25
+    }
+  ],
+  "orders": []
+}
