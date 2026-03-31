@@ -2,6 +2,28 @@
 
 Website bán thời trang với phong cách tối giản, gồm trang chủ, danh mục sản phẩm, chi tiết sản phẩm, giỏ hàng, thanh toán và khu vực quản trị cơ bản.
 
+## Thông tin demo
+
+- Link public: `https://dm-fashion-apparel.onrender.com`
+- Link local: `http://localhost:3000`
+- Tài khoản khách hàng: `customer@atelier.local` / `123456`
+- Tài khoản quản trị: `admin@atelier.local` / `admin123`
+- Môi trường demo: `Render Free Web Service`
+
+Gợi ý nội dung ngắn để đưa vào báo cáo hoặc slide:
+
+```text
+Hệ thống demo của nhóm được triển khai tại:
+https://dm-fashion-apparel.onrender.com
+
+Ứng dụng hỗ trợ các chức năng chính: xem sản phẩm, tìm kiếm, xem chi tiết,
+thêm vào giỏ hàng, thanh toán, đăng nhập và quản trị cơ bản.
+
+Tài khoản kiểm thử:
+- Customer: customer@atelier.local / 123456
+- Admin: admin@atelier.local / admin123
+```
+
 ## Chức năng đã hoàn thành
 
 - Logo thương hiệu D&M đã gắn vào header và footer
