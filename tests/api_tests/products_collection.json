@@ -1,0 +1,83 @@
+{
+  "info": {
+    "name": "D&M Fashion - Products API Tests",
+    "description": "Bộ Collection cho phép kiểm thử tính đúng đắn khi Tìm kiếm / Lọc Products",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "GET /api/products?q=Linen - Phân trang / Tìm kiếm",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status is 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "pm.test(\"Verify total item metric\", function () {",
+              "    var jsonData = pm.response.json();",
+              "    pm.expect(jsonData).to.have.property('total');",
+              "});",
+              "pm.test(\"Schema Validation structure\", function () {",
+              "    var schema = {",
+              "        \"type\": \"object\",",
+              "        \"properties\": {",
+              "            \"total\": {\"type\": \"number\"},",
+              "            \"products\": {\"type\": \"array\"}",
+              "        }",
+              "    };",
+              "    pm.expect(tv4.validate(pm.response.json(), schema)).to.be.true;",
+              "});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/products?q=Linen",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "products"],
+          "query": [
+            { "key": "q", "value": "Linen" }
+          ]
+        }
+      }
+    },
+    {
+      "name": "GET /api/health - Pulse Check System",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/health",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "health"]
+        }
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://dm-fashion-apparel.onrender.com",
+      "type": "string"
+    }
+  ]
+}
