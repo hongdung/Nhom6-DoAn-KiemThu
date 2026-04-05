@@ -111,6 +111,71 @@ function ensureCart(req) {
   }
 }
 
+function buildCategoryFormValues(input = {}, fallback = null) {
+  const hasSubmittedValues = Object.keys(input).length > 0;
+
+  return {
+    name: String(input.name ?? fallback?.name ?? "").trim(),
+    isActive: hasSubmittedValues
+      ? input.isActive === "on" || input.isActive === "true" || input.isActive === true
+      : fallback
+        ? fallback.isActive !== false
+        : true,
+  };
+}
+
+function buildProductFormValues(input = {}, fallback = null) {
+  const hasSubmittedValues = Object.keys(input).length > 0;
+
+  return {
+    name: String(input.name ?? fallback?.name ?? "").trim(),
+    slug: String(input.slug ?? fallback?.slug ?? "").trim(),
+    categoryId: String(input.categoryId ?? fallback?.categoryId ?? ""),
+    price: String(input.price ?? fallback?.price ?? ""),
+    comparePrice: String(input.comparePrice ?? fallback?.comparePrice ?? ""),
+    stock: String(input.stock ?? fallback?.stock ?? ""),
+    accentColor: String(input.accentColor ?? fallback?.accentColor ?? "#b22f2b").trim(),
+    description: String(input.description ?? fallback?.description ?? "").trim(),
+    featured: hasSubmittedValues
+      ? input.featured === "on" || input.featured === "true" || input.featured === true
+      : fallback
+        ? Boolean(fallback.featured)
+        : false,
+  };
+}
+
+function renderAdminCategories(res, options = {}) {
+  const editingCategory = options.editingCategory || null;
+
+  res.render("admin-categories", {
+    pageTitle: "Quản lý danh mục",
+    categories: store.listAdminCategories(),
+    editingCategory,
+    formValues: options.formValues || buildCategoryFormValues({}, editingCategory),
+    selectedCategory: "",
+  });
+}
+
+function renderAdminProducts(res) {
+  res.render("admin-products", {
+    pageTitle: "Quản lý sản phẩm",
+    products: store.listAdminProducts(),
+    selectedCategory: "",
+  });
+}
+
+function renderAdminProductForm(res, options = {}) {
+  const editingProduct = options.editingProduct || null;
+
+  res.render("admin-product-form", {
+    pageTitle: editingProduct ? "Chỉnh sửa sản phẩm" : "Thêm sản phẩm",
+    categories: store.listAdminCategories(),
+    editingProduct,
+    formValues: options.formValues || buildProductFormValues({}, editingProduct),
+    selectedCategory: "",
+  });
+}
+
 function requireAdmin(req, res, next) {
   if (!req.session.user || req.session.user.role !== "admin") {
     return res.status(403).render("admin", {
@@ -277,6 +342,100 @@ app.get("/admin", requireAdmin, (req, res) => {
     dashboard: store.getAdminOverview(),
     selectedCategory: "",
   });
+});
+
+app.get("/admin/categories", requireAdmin, (req, res) => {
+  renderAdminCategories(res);
+});
+
+app.post("/admin/categories", requireAdmin, (req, res) => {
+  const formValues = buildCategoryFormValues(req.body);
+  const result = store.createCategory(formValues);
+
+  if (result.error) {
+    res.locals.flash = { type: "error", text: result.error };
+    return renderAdminCategories(res, { formValues });
+  }
+
+  setFlash(req, "success", `Đã tạo danh mục "${result.category.name}" thành công.`);
+  return res.redirect("/admin/categories");
+});
+
+app.get("/admin/categories/:id/edit", requireAdmin, (req, res) => {
+  const editingCategory = store.getCategoryById(req.params.id);
+
+  if (!editingCategory) {
+    setFlash(req, "error", "Không tìm thấy danh mục cần chỉnh sửa.");
+    return res.redirect("/admin/categories");
+  }
+
+  return renderAdminCategories(res, { editingCategory });
+});
+
+app.post("/admin/categories/:id", requireAdmin, (req, res) => {
+  const existingCategory = store.getCategoryById(req.params.id);
+  const formValues = buildCategoryFormValues(req.body, existingCategory);
+  const result = store.updateCategory(req.params.id, formValues);
+
+  if (result.error) {
+    res.locals.flash = { type: "error", text: result.error };
+    return renderAdminCategories(res, {
+      editingCategory: existingCategory ? { ...existingCategory, ...formValues } : null,
+      formValues,
+    });
+  }
+
+  setFlash(req, "success", `Đã cập nhật danh mục "${result.category.name}".`);
+  return res.redirect("/admin/categories");
+});
+
+app.get("/admin/products", requireAdmin, (req, res) => {
+  renderAdminProducts(res);
+});
+
+app.get("/admin/products/new", requireAdmin, (req, res) => {
+  renderAdminProductForm(res);
+});
+
+app.post("/admin/products", requireAdmin, (req, res) => {
+  const formValues = buildProductFormValues(req.body);
+  const result = store.createProduct(formValues);
+
+  if (result.error) {
+    res.locals.flash = { type: "error", text: result.error };
+    return renderAdminProductForm(res, { formValues });
+  }
+
+  setFlash(req, "success", `Đã tạo sản phẩm "${result.product.name}" thành công.`);
+  return res.redirect("/admin/products");
+});
+
+app.get("/admin/products/:id/edit", requireAdmin, (req, res) => {
+  const editingProduct = store.getAdminProductById(req.params.id);
+
+  if (!editingProduct) {
+    setFlash(req, "error", "Không tìm thấy sản phẩm cần chỉnh sửa.");
+    return res.redirect("/admin/products");
+  }
+
+  return renderAdminProductForm(res, { editingProduct });
+});
+
+app.post("/admin/products/:id", requireAdmin, (req, res) => {
+  const existingProduct = store.getAdminProductById(req.params.id);
+  const formValues = buildProductFormValues(req.body, existingProduct);
+  const result = store.updateProduct(req.params.id, formValues);
+
+  if (result.error) {
+    res.locals.flash = { type: "error", text: result.error };
+    return renderAdminProductForm(res, {
+      editingProduct: existingProduct ? { ...existingProduct, ...formValues } : null,
+      formValues,
+    });
+  }
+
+  setFlash(req, "success", `Đã cập nhật sản phẩm "${result.product.name}".`);
+  return res.redirect("/admin/products");
 });
 
 app.get("/api/health", (req, res) => {

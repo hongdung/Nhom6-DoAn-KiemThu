@@ -1,0 +1,158 @@
+[
+  {
+    "id": "TC_UI_01",
+    "name": "Trang chủ hiển thị đúng",
+    "status": "PASS",
+    "note": "Trang chủ tải thành công, banner và tiêu đề chính hiển thị đúng."
+  },
+  {
+    "id": "TC_UI_02",
+    "name": "Danh sách sản phẩm hiển thị",
+    "status": "PASS",
+    "note": "Trang danh sách tải thành công với 8 sản phẩm hiển thị."
+  },
+  {
+    "id": "TC_UI_03",
+    "name": "Tìm kiếm có kết quả",
+    "status": "PASS",
+    "note": "Tìm kiếm với từ khóa \"áo\" trả về: 5 sản phẩm phù hợp."
+  },
+  {
+    "id": "TC_UI_04",
+    "name": "Tìm kiếm không có kết quả",
+    "status": "PASS",
+    "note": "Tìm kiếm từ khóa không tồn tại hiển thị trạng thái rỗng đúng."
+  },
+  {
+    "id": "TC_UI_05",
+    "name": "Tìm kiếm không dấu",
+    "status": "PASS",
+    "note": "Tìm kiếm không dấu hoạt động, kết quả: 5 sản phẩm phù hợp."
+  },
+  {
+    "id": "TC_UI_06",
+    "name": "Lọc danh mục Nữ",
+    "status": "PASS",
+    "note": "Lọc danh mục Nữ hoạt động đúng."
+  },
+  {
+    "id": "TC_UI_07",
+    "name": "Lọc danh mục Nam",
+    "status": "PASS",
+    "note": "Lọc danh mục Nam hoạt động đúng."
+  },
+  {
+    "id": "TC_UI_08",
+    "name": "Mở trang chi tiết sản phẩm",
+    "status": "PASS",
+    "note": "Trang chi tiết sản phẩm mở thành công: Túi Mini Crossbody."
+  },
+  {
+    "id": "TC_UI_09",
+    "name": "Gallery ảnh sản phẩm hiển thị",
+    "status": "PASS",
+    "note": "Trang chi tiết hiển thị 3 ảnh trong gallery."
+  },
+  {
+    "id": "TC_UI_10",
+    "name": "Thêm sản phẩm vào giỏ hàng",
+    "status": "PASS",
+    "note": "Thêm sản phẩm vào giỏ hàng thành công."
+  },
+  {
+    "id": "TC_UI_11",
+    "name": "Thêm cùng sản phẩm lần hai",
+    "status": "PASS",
+    "note": "Thêm lại cùng sản phẩm thành công, số lượng hiện tại là 2."
+  },
+  {
+    "id": "TC_UI_12",
+    "name": "Cập nhật số lượng trong giỏ hàng",
+    "status": "PASS",
+    "note": "Cập nhật số lượng trong giỏ hàng thành công."
+  },
+  {
+    "id": "TC_UI_13",
+    "name": "Cập nhật số lượng 0 để xóa khỏi giỏ",
+    "status": "PASS",
+    "note": "Trình duyệt chặn nhập số lượng 0 theo ràng buộc min=1, hệ thống không cho gửi dữ liệu không hợp lệ."
+  },
+  {
+    "id": "TC_UI_14",
+    "name": "Xóa sản phẩm khỏi giỏ hàng",
+    "status": "PASS",
+    "note": "Xóa sản phẩm khỏi giỏ hàng thành công."
+  },
+  {
+    "id": "TC_UI_15",
+    "name": "Giỏ hàng trống hiển thị đúng",
+    "status": "PASS",
+    "note": "Trang giỏ hàng trống hiển thị đúng."
+  },
+  {
+    "id": "TC_UI_16",
+    "name": "Thanh toán thành công",
+    "status": "PASS",
+    "note": "Luồng thanh toán hợp lệ hoạt động đúng."
+  },
+  {
+    "id": "TC_UI_17",
+    "name": "Thanh toán thiếu dữ liệu",
+    "status": "PASS",
+    "note": "Biểu mẫu chặn gửi khi thiếu dữ liệu, có 4 trường không hợp lệ."
+  },
+  {
+    "id": "TC_UI_18",
+    "name": "Truy cập checkout khi giỏ hàng trống",
+    "status": "PASS",
+    "note": "Hệ thống chuyển hướng đúng khi truy cập checkout với giỏ hàng trống."
+  },
+  {
+    "id": "TC_UI_19",
+    "name": "Đăng nhập khách hàng thành công",
+    "status": "PASS",
+    "note": "Đăng nhập khách hàng thành công, user chip: Nguyễn Minh Anh."
+  },
+  {
+    "id": "TC_UI_20",
+    "name": "Đăng nhập thất bại với mật khẩu sai",
+    "status": "PASS",
+    "note": "Đăng nhập thất bại được xử lý đúng và có thông báo lỗi."
+  },
+  {
+    "id": "TC_UI_21",
+    "name": "Đăng nhập thiếu dữ liệu",
+    "status": "PASS",
+    "note": "Form đăng nhập chặn gửi khi bỏ trống dữ liệu, có 2 trường không hợp lệ."
+  },
+  {
+    "id": "TC_UI_22",
+    "name": "Đăng nhập quản trị thành công",
+    "status": "PASS",
+    "note": "Đăng nhập admin thành công và vào trang quản trị đúng."
+  },
+  {
+    "id": "TC_UI_23",
+    "name": "Đăng xuất",
+    "status": "PASS",
+    "note": "Đăng xuất thành công và giao diện trở lại trạng thái khách."
+  },
+  {
+    "id": "TC_UI_24",
+    "name": "Chặn truy cập admin khi chưa có quyền",
+    "status": "PASS",
+    "note": "Trang admin chặn đúng với người chưa có quyền."
+  },
+  {
+    "id": "TC_UI_25",
+    "name": "Logo điều hướng về trang chủ",
+    "status": "PASS",
+    "note": "Bấm logo trên header điều hướng đúng về trang chủ."
+  },
+  {
+    "id": "TC_UI_26",
+    "name": "Trang 404 hiển thị đúng",
+    "status": "PASS",
+    "note": "Trang 404 hoạt động đúng, status: 404."
+  }
+]

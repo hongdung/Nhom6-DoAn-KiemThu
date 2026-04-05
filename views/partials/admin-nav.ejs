@@ -1,0 +1,9 @@
+<nav class="admin-nav">
+  <a href="/admin" class="<%= currentPath === '/admin' ? 'active' : '' %>">Tổng quan</a>
+  <a href="/admin/categories" class="<%= currentPath.startsWith('/admin/categories') ? 'active' : '' %>">
+    Danh mục
+  </a>
+  <a href="/admin/products" class="<%= currentPath.startsWith('/admin/products') ? 'active' : '' %>">
+    Sản phẩm
+  </a>
+</nav>
