@@ -2,6 +2,7 @@ import unittest
 import sys
 import os
 import openpyxl
+import time
 from datetime import datetime
 
 sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
@@ -39,6 +40,7 @@ class PostLoginTest(unittest.TestCase):
         """TC_UI_05: Customer truy cập Admin -> Bị từ chối"""
         self.login_page.load()
         self.login_page.login("customer@atelier.local", "123456")
+        time.sleep(2)
         
         self.driver.get("https://dm-fashion-apparel.onrender.com/admin")
         
@@ -50,6 +52,7 @@ class PostLoginTest(unittest.TestCase):
         """TC_UI_06: Admin truy cập Dashboard"""
         self.login_page.load()
         self.login_page.login("admin@atelier.local", "admin123")
+        time.sleep(2)
         
         self.driver.get("https://dm-fashion-apparel.onrender.com/admin")
         
@@ -62,6 +65,7 @@ class PostLoginTest(unittest.TestCase):
         """TC_UI_07: Không cho Checkout khi giỏ hàng trống"""
         self.login_page.load()
         self.login_page.login("customer@atelier.local", "123456")
+        time.sleep(2)
         
         # Truy cập checkout mà không có sản phẩm
         self.driver.get("https://dm-fashion-apparel.onrender.com/checkout")

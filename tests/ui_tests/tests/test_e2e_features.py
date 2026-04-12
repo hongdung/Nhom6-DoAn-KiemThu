@@ -65,15 +65,17 @@ class E2EFeaturesTest(unittest.TestCase):
         # Bắt đầu với Đăng nhập (vì cần fill thông tin nhanh hoặc có thể mua khách qua đường)
         self.login_page.load()
         self.login_page.login("customer@atelier.local", "123456")
+        time.sleep(2)
 
         # 1. Đi tới một trang sản phẩm bất kỳ
         self.driver.get("https://dm-fashion-apparel.onrender.com/products/so-mi-linen-oversize")
         
         # 2. Add to cart
         try:
-            add_button = self.driver.find_element(By.XPATH, "//button[contains(text(), 'hàng') or @type='submit']")
+            add_button = self.driver.find_element(By.CSS_SELECTOR, "form.detail-form button[type='submit']")
             add_button.click()
-            time.sleep(1) # chờ load sau post request /cart
+            time.sleep(2) # chờ load sau post request /cart
+
         except Exception as e:
             self.fail(f"Form thêm giỏ hàng thay đổi! {e}")
 
@@ -105,6 +107,7 @@ class E2EFeaturesTest(unittest.TestCase):
         """TC_UI_10: Test chức năng Đăng Xuất xoá Cookie session"""
         self.login_page.load()
         self.login_page.login("customer@atelier.local", "123456")
+        time.sleep(2)
 
         # Có thể có nút logout ngầm định trên / 
         self.driver.get("https://dm-fashion-apparel.onrender.com/")
