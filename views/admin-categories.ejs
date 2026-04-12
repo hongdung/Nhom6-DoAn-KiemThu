@@ -1,0 +1,95 @@
+<%- include('partials/head') %>
+<%- include('partials/header', { selectedCategory }) %>
+
+<section class="section-header">
+  <div>
+    <p class="eyebrow">Quản lý danh mục</p>
+    <h1>Danh mục sản phẩm</h1>
+    <p>Tạo mới, đổi tên hoặc tạm ẩn danh mục trước khi gán cho sản phẩm.</p>
+  </div>
+  <div class="admin-toolbar">
+    <% if (editingCategory) { %>
+      <a href="/admin/categories" class="secondary-link">Tạo danh mục mới</a>
+    <% } %>
+    <a href="/admin/products" class="primary-link">Sang quản lý sản phẩm</a>
+  </div>
+</section>
+
+<%- include('partials/admin-nav') %>
+
+<section class="admin-content-grid">
+  <article class="table-card">
+    <div class="table-header">
+      <p class="eyebrow">Danh sách</p>
+      <h2>Các danh mục hiện có</h2>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Tên danh mục</th>
+            <th>Slug</th>
+            <th>Số sản phẩm</th>
+            <th>Trạng thái</th>
+            <th>Thao tác</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% categories.forEach((category) => { %>
+            <tr>
+              <td><%= category.name %></td>
+              <td><code><%= category.slug %></code></td>
+              <td><%= category.productCount %></td>
+              <td>
+                <span class="status-pill <%= category.isActive ? 'is-active' : 'is-muted' %>">
+                  <%= category.isActive ? 'Đang hoạt động' : 'Tạm ẩn' %>
+                </span>
+              </td>
+              <td>
+                <a href="/admin/categories/<%= category.id %>/edit" class="secondary-link small-link">
+                  Chỉnh sửa
+                </a>
+              </td>
+            </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </div>
+  </article>
+
+  <aside class="table-card">
+    <div class="table-header">
+      <p class="eyebrow"><%= editingCategory ? 'Chỉnh sửa' : 'Tạo mới' %></p>
+      <h2><%= editingCategory ? 'Cập nhật danh mục' : 'Tạo danh mục mới' %></h2>
+    </div>
+    <form
+      action="<%= editingCategory ? `/admin/categories/${editingCategory.id}` : '/admin/categories' %>"
+      method="post"
+      class="admin-form"
+    >
+      <label>
+        Tên danh mục
+        <input
+          type="text"
+          name="name"
+          value="<%= formValues.name %>"
+          placeholder="Ví dụ: Công sở"
+          required
+        />
+      </label>
+      <label class="checkbox-field">
+        <input type="checkbox" name="isActive" <%= formValues.isActive ? 'checked' : '' %> />
+        <span>Hiển thị danh mục này trên website</span>
+      </label>
+      <p class="form-note">
+        Slug sẽ được tạo tự động theo tên danh mục. Danh mục tạm ẩn sẽ không hiển thị trên menu
+        ngoài website nhưng vẫn giữ dữ liệu cho sản phẩm cũ.
+      </p>
+      <button type="submit">
+        <%= editingCategory ? 'Lưu thay đổi danh mục' : 'Tạo danh mục' %>
+      </button>
+    </form>
+  </aside>
+</section>
+
+<%- include('partials/footer') %>

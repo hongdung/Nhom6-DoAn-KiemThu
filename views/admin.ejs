@@ -13,9 +13,19 @@
       <p class="eyebrow">Trung tâm quản trị</p>
       <h1>Tổng quan cửa hàng</h1>
     </div>
+    <div class="admin-toolbar">
+      <a href="/admin/categories" class="secondary-link">Quản lý danh mục</a>
+      <a href="/admin/products" class="primary-link">Quản lý sản phẩm</a>
+    </div>
   </section>
 
+  <%- include('partials/admin-nav') %>
+
   <section class="metrics-grid">
+    <article class="metric-card">
+      <span>Danh mục đang hoạt động</span>
+      <strong><%= dashboard.metrics.categoryCount %></strong>
+    </article>
     <article class="metric-card">
       <span>Tổng sản phẩm</span>
       <strong><%= dashboard.metrics.productCount %></strong>
@@ -30,28 +40,55 @@
     </article>
   </section>
 
+  <section class="admin-actions-grid">
+    <article class="table-card">
+      <div class="table-header">
+        <p class="eyebrow">Vận hành nhanh</p>
+        <h2>Thao tác quản trị cơ bản</h2>
+      </div>
+      <div class="admin-action-list">
+        <a href="/admin/categories" class="admin-action-item">
+          <strong>Danh mục sản phẩm</strong>
+          <span>Tạo danh mục mới, chỉnh sửa tên và trạng thái hoạt động.</span>
+        </a>
+        <a href="/admin/products/new" class="admin-action-item">
+          <strong>Thêm sản phẩm mới</strong>
+          <span>Tạo sản phẩm với giá, tồn kho, mô tả và danh mục phù hợp.</span>
+        </a>
+        <a href="/admin/products" class="admin-action-item">
+          <strong>Chỉnh sửa sản phẩm</strong>
+          <span>Cập nhật giá bán, tồn kho, trạng thái nổi bật và đường dẫn ảnh theo slug.</span>
+        </a>
+      </div>
+    </article>
+  </section>
+
   <section class="admin-grid">
     <article class="table-card">
       <div class="table-header">
         <p class="eyebrow">Tồn kho thấp</p>
         <h2>Sản phẩm sắp hết hàng</h2>
       </div>
-      <table>
-        <thead>
-          <tr>
-            <th>Tên sản phẩm</th>
-            <th>Tồn kho</th>
-          </tr>
-        </thead>
-        <tbody>
-          <% dashboard.lowStock.forEach((product) => { %>
+      <div class="table-wrap">
+        <table>
+          <thead>
             <tr>
-              <td><%= product.name %></td>
-              <td><%= product.stock %></td>
+              <th>Tên sản phẩm</th>
+              <th>Danh mục</th>
+              <th>Tồn kho</th>
             </tr>
-          <% }) %>
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            <% dashboard.lowStock.forEach((product) => { %>
+              <tr>
+                <td><%= product.name %></td>
+                <td><%= product.category %></td>
+                <td><%= product.stock %></td>
+              </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      </div>
     </article>
 
     <article class="table-card">
@@ -60,26 +97,28 @@
         <h2>Đơn hàng mới nhất</h2>
       </div>
       <% if (dashboard.recentOrders.length) { %>
-        <table>
-          <thead>
-            <tr>
-              <th>Mã đơn</th>
-              <th>Khách hàng</th>
-              <th>Email</th>
-              <th>Tổng tiền</th>
-            </tr>
-          </thead>
-          <tbody>
-            <% dashboard.recentOrders.forEach((order) => { %>
+        <div class="table-wrap">
+          <table>
+            <thead>
               <tr>
-                <td>#<%= order.id %></td>
-                <td><%= order.customerName %></td>
-                <td><%= order.customerEmail %></td>
-                <td><%= formatCurrency(order.totalAmount) %></td>
+                <th>Mã đơn</th>
+                <th>Khách hàng</th>
+                <th>Email</th>
+                <th>Tổng tiền</th>
               </tr>
-            <% }) %>
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              <% dashboard.recentOrders.forEach((order) => { %>
+                <tr>
+                  <td>#<%= order.id %></td>
+                  <td><%= order.customerName %></td>
+                  <td><%= order.customerEmail %></td>
+                  <td><%= formatCurrency(order.totalAmount) %></td>
+                </tr>
+              <% }) %>
+            </tbody>
+          </table>
+        </div>
       <% } else { %>
         <p class="muted-text">Chưa có đơn hàng nào được ghi nhận.</p>
       <% } %>

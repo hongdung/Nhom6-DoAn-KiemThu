@@ -15,12 +15,33 @@
       "role": "admin"
     }
   ],
+  "categories": [
+    {
+      "id": 1,
+      "name": "Nam",
+      "slug": "nam",
+      "isActive": true
+    },
+    {
+      "id": 2,
+      "name": "Nữ",
+      "slug": "nu",
+      "isActive": true
+    },
+    {
+      "id": 3,
+      "name": "Phụ kiện",
+      "slug": "phu-kien",
+      "isActive": true
+    }
+  ],
   "products": [
     {
       "id": 1,
       "slug": "so-mi-linen-oversize",
       "name": "Sơ mi Linen Oversize",
       "category": "Nữ",
+      "categoryId": 2,
       "price": 690000,
       "comparePrice": 890000,
       "description": "Thiết kế tối giản với phom rộng, chất vải linen pha cotton phù hợp cho thời tiết nóng và outfit hằng ngày.",
@@ -33,6 +54,7 @@
       "slug": "ao-thun-essential-fit",
       "name": "Áo thun Essential Fit",
       "category": "Nam",
+      "categoryId": 1,
       "price": 320000,
       "comparePrice": 420000,
       "description": "Mẫu áo thun cơ bản dễ phối, chất cotton dày vừa phải, phù hợp cho test thêm giỏ hàng và tìm kiếm sản phẩm.",
@@ -45,6 +67,7 @@
       "slug": "quan-tay-tailored-ankle",
       "name": "Quần tây Tailored Ankle",
       "category": "Nữ",
+      "categoryId": 2,
       "price": 780000,
       "comparePrice": 980000,
       "description": "Kiểu quần ống đứng cạp cao, tập trung vào sự gọn gàng và thanh lịch cho văn phòng hoặc đi chơi cuối tuần.",
@@ -57,6 +80,7 @@
       "slug": "ao-khoac-coach-nylon",
       "name": "Áo khoác Coach Nylon",
       "category": "Nam",
+      "categoryId": 1,
       "price": 990000,
       "comparePrice": 1190000,
       "description": "Áo khoác mỏng chống gió, phong cách streetwear nhẹ, thích hợp làm dữ liệu mẫu cho kiểm thử lọc danh mục.",
@@ -69,6 +93,7 @@
       "slug": "tui-mini-crossbody",
       "name": "Túi Mini Crossbody",
       "category": "Phụ kiện",
+      "categoryId": 3,
       "price": 540000,
       "comparePrice": 690000,
       "description": "Túi đeo chéo kích thước nhỏ với thiết kế phẳng và dây bản mảnh, phù hợp cho chức năng xem chi tiết sản phẩm.",
@@ -81,6 +106,7 @@
       "slug": "dam-midi-wrap",
       "name": "Đầm Midi Wrap",
       "category": "Nữ",
+      "categoryId": 2,
       "price": 880000,
       "comparePrice": 1100000,
       "description": "Đầm midi tay ngắn, phần eo nhấn nhẹ tạo cảm giác chuyển động mềm và sang, thích hợp đặt ở khu vực nổi bật.",
@@ -93,6 +119,7 @@
       "slug": "giay-sneaker-suede",
       "name": "Giày Sneaker Suede",
       "category": "Phụ kiện",
+      "categoryId": 3,
       "price": 1250000,
       "comparePrice": 1490000,
       "description": "Kiểu sneaker đế thấp, phối màu trung tính, hỗ trợ các test case liên quan đến giá trị biên và giỏ hàng.",
@@ -105,6 +132,7 @@
       "slug": "quan-short-relaxed",
       "name": "Quần Short Relaxed",
       "category": "Nam",
+      "categoryId": 1,
       "price": 450000,
       "comparePrice": 560000,
       "description": "Mẫu short lưng chun thoải mái, dễ tạo nhiều trạng thái trong UI và phù hợp làm dữ liệu regression cơ bản.",

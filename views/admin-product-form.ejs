@@ -1,0 +1,126 @@
+<%- include('partials/head') %>
+<%- include('partials/header', { selectedCategory }) %>
+
+<section class="section-header">
+  <div>
+    <p class="eyebrow"><%= editingProduct ? 'Chỉnh sửa sản phẩm' : 'Tạo sản phẩm mới' %></p>
+    <h1><%= editingProduct ? editingProduct.name : 'Thêm sản phẩm vào cửa hàng' %></h1>
+    <p>
+      Điền đủ các thông tin cơ bản để sản phẩm hiển thị ngoài website và có thể dùng cho kiểm thử.
+    </p>
+  </div>
+  <div class="admin-toolbar">
+    <a href="/admin/products" class="secondary-link">Quay lại danh sách</a>
+    <a href="/admin/categories" class="ghost-button">Quản lý danh mục</a>
+  </div>
+</section>
+
+<%- include('partials/admin-nav') %>
+
+<section class="admin-form-shell">
+  <article class="table-card">
+    <div class="table-header">
+      <p class="eyebrow">Thông tin sản phẩm</p>
+      <h2><%= editingProduct ? 'Cập nhật dữ liệu' : 'Nhập dữ liệu sản phẩm' %></h2>
+    </div>
+
+    <form
+      action="<%= editingProduct ? `/admin/products/${editingProduct.id}` : '/admin/products' %>"
+      method="post"
+      class="admin-form"
+    >
+      <div class="form-grid">
+        <label>
+          Tên sản phẩm
+          <input
+            type="text"
+            name="name"
+            value="<%= formValues.name %>"
+            placeholder="Ví dụ: Áo sơ mi Oxford"
+            required
+          />
+        </label>
+
+        <label>
+          Slug sản phẩm
+          <input
+            type="text"
+            name="slug"
+            value="<%= formValues.slug %>"
+            placeholder="ao-so-mi-oxford"
+          />
+        </label>
+
+        <label>
+          Danh mục
+          <select name="categoryId" required>
+            <option value="">Chọn danh mục</option>
+            <% categories.forEach((category) => { %>
+              <option
+                value="<%= category.id %>"
+                <%= Number(formValues.categoryId) === Number(category.id) ? 'selected' : '' %>
+              >
+                <%= category.name %>
+              </option>
+            <% }) %>
+          </select>
+        </label>
+
+        <label>
+          Màu nhấn
+          <input
+            type="text"
+            name="accentColor"
+            value="<%= formValues.accentColor %>"
+            placeholder="#b22f2b"
+          />
+        </label>
+
+        <label>
+          Giá bán
+          <input type="number" name="price" min="1" step="1000" value="<%= formValues.price %>" required />
+        </label>
+
+        <label>
+          Giá gốc
+          <input type="number" name="comparePrice" min="0" step="1000" value="<%= formValues.comparePrice %>" />
+        </label>
+
+        <label>
+          Tồn kho
+          <input type="number" name="stock" min="0" step="1" value="<%= formValues.stock %>" required />
+        </label>
+
+        <label class="checkbox-field">
+          <input type="checkbox" name="featured" <%= formValues.featured ? 'checked' : '' %> />
+          <span>Hiển thị ở khu vực nổi bật trên trang chủ</span>
+        </label>
+      </div>
+
+      <label>
+        Mô tả sản phẩm
+        <textarea
+          name="description"
+          rows="6"
+          placeholder="Mô tả ngắn gọn về chất liệu, kiểu dáng và mục đích sử dụng."
+          required
+        ><%= formValues.description %></textarea>
+      </label>
+
+      <div class="form-hint-box">
+        <strong>Gợi ý ảnh sản phẩm</strong>
+        <p>
+          Ảnh sẽ được lấy theo thư mục:
+          <code>/public/images/products/&lt;slug&gt;/cover.jpg</code>
+        </p>
+        <p>Nếu có nhiều ảnh, có thể thêm <code>detail-1.jpg</code>, <code>detail-2.jpg</code>.</p>
+      </div>
+
+      <button type="submit">
+        <%= editingProduct ? 'Lưu thay đổi sản phẩm' : 'Tạo sản phẩm mới' %>
+      </button>
+    </form>
+  </article>
+</section>
+
+<%- include('partials/footer') %>

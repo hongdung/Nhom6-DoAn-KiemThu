@@ -652,6 +652,135 @@ textarea {
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
+.admin-toolbar,
+.admin-nav,
+.admin-action-list,
+.admin-content-grid,
+.admin-form-shell,
+.form-grid {
+  display: grid;
+  gap: 16px;
+}
+
+.admin-toolbar {
+  grid-template-columns: repeat(2, max-content);
+  justify-content: end;
+}
+
+.admin-nav {
+  grid-template-columns: repeat(3, max-content);
+  margin-bottom: 24px;
+}
+
+.admin-nav a {
+  padding: 10px 16px;
+  border-radius: 999px;
+  background: rgba(24, 21, 17, 0.06);
+}
+
+.admin-nav a.active {
+  background: rgba(178, 47, 43, 0.14);
+  color: var(--accent-dark);
+}
+
+.admin-actions-grid {
+  margin-bottom: 24px;
+}
+
+.admin-action-list {
+  margin-top: 18px;
+}
+
+.admin-action-item {
+  display: grid;
+  gap: 6px;
+  padding: 18px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  background: rgba(24, 21, 17, 0.04);
+}
+
+.admin-action-item span,
+.cell-subtitle,
+.form-note,
+.form-hint-box p {
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.admin-content-grid {
+  grid-template-columns: 1.2fr 0.8fr;
+  align-items: start;
+}
+
+.admin-form-shell {
+  grid-template-columns: 1fr;
+}
+
+.admin-form {
+  display: grid;
+  gap: 18px;
+}
+
+.form-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.checkbox-field {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-weight: 500;
+}
+
+.checkbox-field input {
+  width: 18px;
+  height: 18px;
+  margin: 0;
+}
+
+.table-wrap {
+  overflow-x: auto;
+}
+
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 0.9rem;
+  white-space: nowrap;
+}
+
+.status-pill.is-active {
+  background: rgba(23, 85, 46, 0.12);
+  color: var(--success-ink);
+}
+
+.status-pill.is-muted {
+  background: rgba(24, 21, 17, 0.08);
+  color: var(--muted);
+}
+
+.small-link {
+  min-height: 38px;
+  padding: 10px 16px;
+  white-space: nowrap;
+}
+
+.form-hint-box {
+  padding: 16px 18px;
+  border: 1px dashed rgba(24, 21, 17, 0.2);
+  border-radius: var(--radius-md);
+  background: rgba(24, 21, 17, 0.03);
+}
+
+.form-hint-box strong {
+  display: block;
+  margin-bottom: 10px;
+}
+
 .table-header h2 {
   margin: 8px 0 0;
 }
@@ -705,7 +834,8 @@ td {
   .auth-grid,
   .checkout-grid,
   .cart-layout,
-  .admin-grid {
+  .admin-grid,
+  .admin-content-grid {
     grid-template-columns: 1fr;
   }
 
@@ -759,6 +889,12 @@ td {
 
   .hero-featured,
   .product-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-toolbar,
+  .admin-nav,
+  .form-grid {
     grid-template-columns: 1fr;
   }
 
