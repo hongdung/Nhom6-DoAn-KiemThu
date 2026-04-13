@@ -1,0 +1,122 @@
+{
+  "info": {
+    "name": "D&M Fashion - Auth API Tests",
+    "description": "Bộ Collection chứa các Test Case tự động kiểm tra Endpoint Đăng nhập",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "POST /api/auth/login - Happy Path",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
+              "pm.test(\"Response time is less than 500ms\", function () {",
+              "    pm.expect(pm.response.responseTime).to.be.below(500);",
+              "});",
+              "",
+              "pm.test(\"Schema Validation\", function () {",
+              "    var schema = {",
+              "        \"type\": \"object\",",
+              "        \"properties\": {",
+              "            \"message\": { \"type\": \"string\" },",
+              "            \"user\": { \"type\": \"object\" }",
+              "        },",
+              "        \"required\": [\"message\", \"user\"]",
+              "    };",
+              "    var jsonData = pm.response.json();",
+              "    pm.expect(tv4.validate(jsonData, schema)).to.be.true;",
+              "});",
+              "",
+              "pm.test(\"Data Validation: Check correct success message\", function () {",
+              "    var jsonData = pm.response.json();",
+              "    pm.expect(jsonData.message).to.eql(\"Đăng nhập thành công\");",
+              "});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"email\": \"admin@dm.vn\",\n    \"password\": \"admin\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/auth/login",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "auth", "login"]
+        }
+      }
+    },
+    {
+      "name": "POST /api/auth/login - Unauthorized (Wrong Password)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status code is 401\", function () {",
+              "    pm.response.to.have.status(401);",
+              "});",
+              "",
+              "pm.test(\"Schema Validation - Error body\", function () {",
+              "    var schema = {",
+              "        \"type\": \"object\",",
+              "        \"properties\": {",
+              "            \"message\": { \"type\": \"string\" }",
+              "        },",
+              "        \"required\": [\"message\"]",
+              "    };",
+              "    pm.expect(tv4.validate(pm.response.json(), schema)).to.be.true;",
+              "});",
+              "",
+              "pm.test(\"Data Validation: Check correct error message\", function () {",
+              "    var jsonData = pm.response.json();",
+              "    pm.expect(jsonData.message).to.eql(\"Thông tin đăng nhập không hợp lệ\");",
+              "});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"email\": \"admin@dm.vn\",\n    \"password\": \"wrong_password\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/auth/login",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "auth", "login"]
+        }
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://dm-fashion-apparel.onrender.com",
+      "type": "string"
+    }
+  ]
+}

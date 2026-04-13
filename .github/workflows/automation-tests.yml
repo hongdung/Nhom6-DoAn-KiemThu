@@ -1,0 +1,58 @@
+name: Automation UI & API Tests
+
+on:
+  push:
+    branches: [ "main", "master" ]
+  pull_request:
+    branches: [ "main", "master" ]
+
+jobs:
+  selenium-tests:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install selenium openpyxl
+
+    - name: Setup Chrome & ChromeDriver
+      uses: nanasess/setup-chromedriver@v2
+      
+    - name: Export Display
+      run: |
+        export DISPLAY=:99
+        chromedriver --url-base=/wd/hub &
+        sudo Xvfb -ac :99 -screen 0 1280x1024x24 > /dev/null 2>&1 &
+
+    - name: Run E2E Test Suite (Headless modification required or Xvfb)
+      run: |
+        # In a real environment you should uncomment `options.add_argument('--headless')` 
+        # in the source code or use virtual framebuffer
+        python -m unittest discover -s tests/ui_tests/tests -p "test_*.py"
+
+  postman-api-tests:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Setup Node
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+
+    - name: Install Newman
+      run: npm install -g newman
+
+    - name: Run API Tests with Newman
+      run: |
+        newman run tests/api_tests/auth_login_collection.json
+        newman run tests/api_tests/post_login_collection.json
+        newman run tests/api_tests/products_collection.json
+        newman run tests/api_tests/cart_collection.json
